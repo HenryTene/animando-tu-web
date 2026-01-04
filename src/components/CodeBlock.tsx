@@ -25,7 +25,7 @@ export function CodeBlock({ code, language = 'css', title, showLineNumbers = fal
   const lines = code.trim().split('\n');
 
   return (
-    <div className="group relative overflow-hidden rounded-lg border border-border bg-code-bg">
+    <div className="code-block group relative overflow-hidden rounded-lg border border-border">
       {title && (
         <div className="flex items-center justify-between border-b border-border/50 bg-muted/10 px-4 py-2">
           <span className="text-xs font-medium text-muted-foreground">{title}</span>
@@ -34,24 +34,25 @@ export function CodeBlock({ code, language = 'css', title, showLineNumbers = fal
           </span>
         </div>
       )}
-      
+
       <div className="relative">
         <Button
           variant="ghost"
           size="sm"
           onClick={handleCopy}
-          className="absolute right-2 top-2 h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-muted/20"
+          className="absolute right-2 top-2 h-8 w-8 p-0 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-muted/20 cursor-pointer"
           aria-label="Copiar código"
+          type="button"
         >
           {copied ? (
             <Check className="h-4 w-4 text-success" />
           ) : (
-            <Copy className="h-4 w-4 text-code-text" />
+            <Copy className="h-4 w-4" />
           )}
         </Button>
-        
+
         <pre className="overflow-x-auto p-4 text-sm">
-          <code className="font-mono text-code-text">
+          <code className="font-mono">
             {showLineNumbers ? (
               lines.map((line, i) => (
                 <div key={i} className="flex">
