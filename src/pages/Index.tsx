@@ -5,6 +5,7 @@ import { AppProvider, useApp } from '@/contexts/AppContext';
 import { IntroduccionModule } from '@/components/modules/IntroduccionModule';
 import { EfectosTextoModule } from '@/components/modules/EfectosTextoModule';
 import { TransformacionesModule } from '@/components/modules/TransformacionesModule';
+import { Transformaciones3DModule } from '@/components/modules/Transformaciones3DModule';
 import { TransicionesModule } from '@/components/modules/TransicionesModule';
 import { AnimacionesModule } from '@/components/modules/AnimacionesModule';
 import { LaboratorioModule } from '@/components/modules/LaboratorioModule';
@@ -15,6 +16,7 @@ const MODULE_COMPONENTS: Record<string, React.ComponentType> = {
   'introduccion': IntroduccionModule,
   'efectos-texto': EfectosTextoModule,
   'transformaciones': TransformacionesModule,
+  'transformaciones-3d': Transformaciones3DModule,
   'transiciones': TransicionesModule,
   'animaciones': AnimacionesModule,
   'laboratorio': LaboratorioModule,

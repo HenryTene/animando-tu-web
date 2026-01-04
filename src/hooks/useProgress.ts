@@ -26,6 +26,7 @@ const MODULE_IDS = [
   'introduccion',
   'efectos-texto',
   'transformaciones',
+  'transformaciones-3d',
   'transiciones',
   'animaciones',
   'laboratorio',

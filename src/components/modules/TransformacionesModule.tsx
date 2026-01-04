@@ -20,7 +20,13 @@ export function TransformacionesModule() {
     transformOrigin: `${originX}% ${originY}%`,
   };
 
-  const generatedCSS = `.elemento {
+  const generatedHTML = `<!-- HTML -->
+<div class="elemento">
+  DIV
+</div>`;
+
+  const generatedCSS = `/* CSS */
+.elemento {
   transform: translate(${translateX}px, ${translateY}px) 
              rotate(${rotate}deg) 
              scale(${scale}) 
@@ -54,50 +60,164 @@ export function TransformacionesModule() {
               <p className="text-sm text-muted-foreground">
                 Mueve el elemento en los ejes X e Y. Acepta valores en <code>px</code>, <code>%</code>, <code>rem</code>, etc.
               </p>
-              <CodeBlock 
-                code={`transform: translate(50px, 20px);   /* X e Y */
-transform: translateX(50px);         /* Solo X */
-transform: translateY(-20px);        /* Solo Y */
-transform: translate(50%, 0);        /* % del elemento */`}
-                language="css"
-              />
+              <div className="grid gap-4 lg:grid-cols-2">
+                <CodeBlock 
+                  code={`<!-- HTML -->
+<div class="caja">
+  Elemento movido
+</div>`}
+                  language="html"
+                  title="HTML"
+                />
+                <CodeBlock 
+                  code={`/* CSS */
+.caja {
+  transform: translate(50px, 20px);
+  /* Mueve 50px derecha, 20px abajo */
+}
+
+/* Otras opciones */
+.solo-x { transform: translateX(50px); }
+.solo-y { transform: translateY(-20px); }
+.porcentaje { transform: translate(50%, 0); }`}
+                  language="css"
+                  title="CSS"
+                />
+              </div>
+              {/* Demo visual */}
+              <div className="flex justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
+                <div className="relative">
+                  <div className="h-16 w-16 rounded border-2 border-dashed border-muted-foreground/30"></div>
+                  <div className="absolute left-0 top-0 flex h-16 w-16 items-center justify-center rounded bg-primary text-xs font-bold text-primary-foreground [transform:translate(20px,10px)]">
+                    50px, 20px
+                  </div>
+                </div>
+              </div>
             </TabsContent>
             
             <TabsContent value="rotate" className="space-y-4 p-4">
               <p className="text-sm text-muted-foreground">
                 Rota el elemento. Valores positivos = sentido horario.
               </p>
-              <CodeBlock 
-                code={`transform: rotate(45deg);     /* Grados */
-transform: rotate(0.5turn);   /* Vueltas */
-transform: rotate(3.14rad);   /* Radianes */`}
-                language="css"
-              />
+              <div className="grid gap-4 lg:grid-cols-2">
+                <CodeBlock 
+                  code={`<!-- HTML -->
+<div class="icono">
+  🔄
+</div>`}
+                  language="html"
+                  title="HTML"
+                />
+                <CodeBlock 
+                  code={`/* CSS */
+.icono {
+  transform: rotate(45deg);
+}
+
+/* Otras unidades */
+.vueltas { transform: rotate(0.5turn); }
+.radianes { transform: rotate(3.14rad); }`}
+                  language="css"
+                  title="CSS"
+                />
+              </div>
+              {/* Demo visual */}
+              <div className="flex justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white">
+                  0°
+                </div>
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white [transform:rotate(45deg)]">
+                  45°
+                </div>
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white [transform:rotate(90deg)]">
+                  90°
+                </div>
+              </div>
             </TabsContent>
             
             <TabsContent value="scale" className="space-y-4 p-4">
               <p className="text-sm text-muted-foreground">
                 Escala el elemento. 1 = tamaño original, &lt;1 = reduce, &gt;1 = agranda.
               </p>
-              <CodeBlock 
-                code={`transform: scale(1.5);        /* Ambos ejes */
-transform: scaleX(2);         /* Solo ancho */
-transform: scaleY(0.5);       /* Solo alto */
-transform: scale(1.5, 0.8);   /* X, Y separados */`}
-                language="css"
-              />
+              <div className="grid gap-4 lg:grid-cols-2">
+                <CodeBlock 
+                  code={`<!-- HTML -->
+<button class="boton">
+  Hover me
+</button>`}
+                  language="html"
+                  title="HTML"
+                />
+                <CodeBlock 
+                  code={`/* CSS */
+.boton {
+  transition: transform 0.2s;
+}
+
+.boton:hover {
+  transform: scale(1.1);
+}
+
+/* Otras opciones */
+.solo-ancho { transform: scaleX(2); }
+.solo-alto { transform: scaleY(0.5); }
+.separado { transform: scale(1.5, 0.8); }`}
+                  language="css"
+                  title="CSS"
+                />
+              </div>
+              {/* Demo visual */}
+              <div className="flex items-center justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
+                <div className="flex h-12 w-12 items-center justify-center rounded bg-warning text-xs font-bold text-white">
+                  0.5
+                </div>
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-warning text-sm font-bold text-white">
+                  1.0
+                </div>
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-warning text-sm font-bold text-white [transform:scale(1.5)]">
+                  1.5
+                </div>
+              </div>
             </TabsContent>
             
             <TabsContent value="skew" className="space-y-4 p-4">
               <p className="text-sm text-muted-foreground">
                 Inclina el elemento en los ejes X e Y.
               </p>
-              <CodeBlock 
-                code={`transform: skew(10deg, 5deg);  /* X e Y */
-transform: skewX(15deg);       /* Solo X */
-transform: skewY(-10deg);      /* Solo Y */`}
-                language="css"
-              />
+              <div className="grid gap-4 lg:grid-cols-2">
+                <CodeBlock 
+                  code={`<!-- HTML -->
+<div class="tarjeta">
+  Contenido inclinado
+</div>`}
+                  language="html"
+                  title="HTML"
+                />
+                <CodeBlock 
+                  code={`/* CSS */
+.tarjeta {
+  transform: skew(10deg, 5deg);
+}
+
+/* Otras opciones */
+.solo-x { transform: skewX(15deg); }
+.solo-y { transform: skewY(-10deg); }`}
+                  language="css"
+                  title="CSS"
+                />
+              </div>
+              {/* Demo visual */}
+              <div className="flex items-center justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
+                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white">
+                  Normal
+                </div>
+                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white [transform:skewX(15deg)]">
+                  skewX
+                </div>
+                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white [transform:skew(10deg,5deg)]">
+                  skew
+                </div>
+              </div>
             </TabsContent>
           </Tabs>
         </section>
@@ -242,6 +362,12 @@ transform: skewY(-10deg);      /* Solo Y */`}
                   DIV
                 </div>
               </div>
+              
+              <CodeBlock 
+                code={generatedHTML}
+                language="html"
+                title="HTML"
+              />
               
               <CodeBlock 
                 code={generatedCSS}
