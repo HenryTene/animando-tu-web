@@ -88,7 +88,7 @@ export function TransformacionesModule() {
               <div className="flex justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
                 <div className="relative">
                   <div className="h-16 w-16 rounded border-2 border-dashed border-muted-foreground/30"></div>
-                  <div className="absolute left-0 top-0 flex h-16 w-16 items-center justify-center rounded bg-primary text-xs font-bold text-primary-foreground [transform:translate(20px,10px)]">
+                  <div className="absolute left-0 top-0 flex h-16 w-16 items-center justify-center rounded bg-primary text-xs font-bold text-primary-foreground transition-transform duration-300 hover:[transform:translate(20px,10px)] cursor-pointer">
                     50px, 20px
                   </div>
                 </div>
@@ -126,10 +126,10 @@ export function TransformacionesModule() {
                 <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white">
                   0°
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white [transform:rotate(45deg)]">
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white transition-transform duration-300 hover:[transform:rotate(45deg)] cursor-pointer">
                   45°
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white [transform:rotate(90deg)]">
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white transition-transform duration-300 hover:[transform:rotate(90deg)] cursor-pointer">
                   90°
                 </div>
               </div>
@@ -174,7 +174,7 @@ export function TransformacionesModule() {
                 <div className="flex h-16 w-16 items-center justify-center rounded bg-warning text-sm font-bold text-white">
                   1.0
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-warning text-sm font-bold text-white [transform:scale(1.5)]">
+                <div className="flex h-16 w-16 items-center justify-center rounded bg-warning text-sm font-bold text-white transition-transform duration-300 hover:[transform:scale(1.5)] cursor-pointer">
                   1.5
                 </div>
               </div>
@@ -211,10 +211,10 @@ export function TransformacionesModule() {
                 <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white">
                   Normal
                 </div>
-                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white [transform:skewX(15deg)]">
+                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white transition-transform duration-300 hover:[transform:skewX(15deg)] cursor-pointer">
                   skewX
                 </div>
-                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white [transform:skew(10deg,5deg)]">
+                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white transition-transform duration-300 hover:[transform:skew(10deg,5deg)] cursor-pointer">
                   skew
                 </div>
               </div>
