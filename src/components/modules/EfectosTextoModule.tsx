@@ -16,35 +16,47 @@ interface TextDemoProps {
 function TextDemo({ title, description, demoContent, htmlCode, cssCode }: TextDemoProps) {
   const [showCode, setShowCode] = useState(false);
   
+  const handleToggle = () => {
+    setShowCode(prev => !prev);
+  };
+  
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between gap-2 border-b border-border bg-muted/30 px-4 py-3">
-        <div>
-          <h4 className="font-semibold text-foreground">{title}</h4>
-          <p className="text-xs text-muted-foreground mt-0.5">{description}</p>
+        <div className="min-w-0 flex-1">
+          <h4 className="font-semibold text-foreground text-sm">{title}</h4>
+          <p className="text-xs text-muted-foreground mt-0.5 truncate">{description}</p>
         </div>
         <Button
-          variant={showCode ? "default" : "outline"}
+          variant={showCode ? "secondary" : "outline"}
           size="sm"
-          onClick={() => setShowCode(!showCode)}
-          className="gap-2 shrink-0"
+          onClick={handleToggle}
+          className="gap-2 shrink-0 text-xs"
         >
-          {showCode ? <Eye className="h-4 w-4" /> : <Code className="h-4 w-4" />}
+          {showCode ? <Eye className="h-3.5 w-3.5" /> : <Code className="h-3.5 w-3.5" />}
           {showCode ? 'Ver demo' : 'Ver código'}
         </Button>
       </div>
       
       {/* Content */}
       <div className="p-4">
-        {!showCode ? (
+        {showCode ? (
+          <Tabs defaultValue="html" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-3">
+              <TabsTrigger value="html" className="text-xs">HTML</TabsTrigger>
+              <TabsTrigger value="css" className="text-xs">CSS</TabsTrigger>
+            </TabsList>
+            <TabsContent value="html" className="mt-0">
+              <CodeBlock code={htmlCode} language="html" title="HTML" />
+            </TabsContent>
+            <TabsContent value="css" className="mt-0">
+              <CodeBlock code={cssCode} language="css" title="CSS" />
+            </TabsContent>
+          </Tabs>
+        ) : (
           <div className="flex min-h-[100px] items-center justify-center rounded-lg bg-gradient-to-br from-muted/50 to-muted/20 p-6 border border-border/50">
             {demoContent}
-          </div>
-        ) : (
-          <div className="space-y-3">
-            <CodeBlock code={htmlCode} language="html" title="HTML" />
-            <CodeBlock code={cssCode} language="css" title="CSS" />
           </div>
         )}
       </div>
