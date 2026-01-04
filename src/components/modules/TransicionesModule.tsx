@@ -25,10 +25,19 @@ export function TransicionesModule() {
     ? { transition: `all ${duration}ms ${timingFunction} ${delay}ms` }
     : {};
 
-  const generatedCSS = `.elemento {
+  const generatedHTML = `<!-- HTML -->
+<div class="elemento">
+  Hover me
+</div>`;
+
+  const generatedCSS = `/* CSS */
+.elemento {
   /* Estado inicial */
+  width: 100px;
+  height: 100px;
+  background: #00897b;
+  border-radius: 12px;
   transform: scale(1);
-  background: hsl(175, 84%, 32%);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   /* Transición */
@@ -39,7 +48,7 @@ export function TransicionesModule() {
 
 .elemento:hover {
   transform: scale(1.1) translateY(-4px);
-  background: hsl(175, 84%, 40%);
+  background: #26a69a;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }`;
 
@@ -87,7 +96,15 @@ export function TransicionesModule() {
             </div>
           </div>
           
-          <div className="mt-4">
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <CodeBlock 
+              code={`<!-- HTML -->
+<button class="btn-transition">
+  Hover me
+</button>`}
+              language="html"
+              title="HTML"
+            />
             <CodeBlock 
               code={`/* Forma larga */
 transition-property: transform, opacity;
@@ -99,12 +116,21 @@ transition-delay: 0ms;
 transition: transform 300ms ease-out 0ms, 
             opacity 300ms ease-out 0ms;`}
               language="css"
-              title="Sintaxis"
+              title="CSS"
             />
           </div>
         </section>
 
         <DemoArea title="Comparación: Sin vs Con transición">
+          <div className="mb-4">
+            <CodeBlock
+              code={`<!-- HTML para ambos ejemplos -->
+<div class="caja sin-transicion">Hover</div>
+<div class="caja con-transicion">Hover</div>`}
+              language="html"
+              title="HTML"
+            />
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-12">
             <div className="flex flex-col items-center gap-3">
               <div className="group flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-destructive/80 font-bold text-destructive-foreground hover:scale-110 hover:-translate-y-1 hover:bg-destructive hover:shadow-lg">
@@ -119,6 +145,33 @@ transition: transform 300ms ease-out 0ms,
               </div>
               <span className="text-xs text-muted-foreground">Con transición (300ms)</span>
             </div>
+          </div>
+          <div className="mt-4">
+            <CodeBlock
+              code={`/* CSS */
+.caja {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.sin-transicion {
+  background: #ef4444;
+}
+
+.con-transicion {
+  background: #22c55e;
+  transition: all 300ms ease;
+}
+
+.caja:hover {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}`}
+              language="css"
+              title="CSS"
+            />
           </div>
         </DemoArea>
 
@@ -196,6 +249,12 @@ transition: transform 300ms ease-out 0ms,
                   Hover me
                 </div>
               </div>
+              
+              <CodeBlock 
+                code={generatedHTML}
+                language="html"
+                title="HTML"
+              />
               
               <CodeBlock 
                 code={generatedCSS}

@@ -7,10 +7,11 @@ interface TextDemoProps {
   title: string;
   description: string;
   className: string;
+  htmlCode: string;
   cssCode: string;
 }
 
-function TextDemo({ title, description, className, cssCode }: TextDemoProps) {
+function TextDemo({ title, description, className, htmlCode, cssCode }: TextDemoProps) {
   const [showCode, setShowCode] = useState(false);
   
   return (
@@ -21,7 +22,7 @@ function TextDemo({ title, description, className, cssCode }: TextDemoProps) {
           onClick={() => setShowCode(!showCode)}
           className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground hover:bg-muted/80"
         >
-          {showCode ? 'Ocultar CSS' : 'Ver CSS'}
+          {showCode ? 'Ocultar código' : 'Ver código'}
         </button>
       </div>
       
@@ -34,7 +35,10 @@ function TextDemo({ title, description, className, cssCode }: TextDemoProps) {
       </div>
       
       {showCode && (
-        <CodeBlock code={cssCode} language="css" />
+        <div className="space-y-3">
+          <CodeBlock code={htmlCode} language="html" title="HTML" />
+          <CodeBlock code={cssCode} language="css" title="CSS" />
+        </div>
       )}
     </div>
   );
@@ -63,7 +67,13 @@ export function EfectosTextoModule() {
               title="1. Sombra animada suave"
               description="Una sombra sutil que aparece al hacer hover"
               className="text-xl font-bold text-foreground transition-all duration-300 hover:[text-shadow:2px_2px_8px_hsl(var(--primary)/0.4)]"
+              htmlCode={`<!-- HTML -->
+<span class="text-shadow-hover">
+  Texto de ejemplo
+</span>`}
               cssCode={`.text-shadow-hover {
+  font-size: 1.25rem;
+  font-weight: bold;
   transition: text-shadow 0.3s ease;
 }
 
@@ -76,7 +86,14 @@ export function EfectosTextoModule() {
               title="2. Subrayado animado"
               description="Un subrayado que crece desde la izquierda"
               className="underline-animated cursor-pointer text-xl font-bold text-foreground"
+              htmlCode={`<!-- HTML -->
+<a href="#" class="underline-animated">
+  Texto de ejemplo
+</a>`}
               cssCode={`.underline-animated {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 2px;
   background-position: 0 100%;
@@ -93,20 +110,29 @@ export function EfectosTextoModule() {
               title="3. Texto con glow"
               description="Un brillo suave que pulsa (para títulos destacados)"
               className="animate-pulse text-xl font-bold text-primary text-glow"
+              htmlCode={`<!-- HTML -->
+<h1 class="text-glow">
+  Texto de ejemplo
+</h1>`}
               cssCode={`.text-glow {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #00897b; /* Color primario */
   text-shadow: 
-    0 0 10px hsl(var(--primary) / 0.5),
-    0 0 20px hsl(var(--primary) / 0.3);
-}
-
-/* Con animación */
-.text-glow-animated {
+    0 0 10px rgba(0, 137, 123, 0.5),
+    0 0 20px rgba(0, 137, 123, 0.3);
   animation: glow-pulse 2s ease-in-out infinite alternate;
 }
 
 @keyframes glow-pulse {
-  from { text-shadow: 0 0 5px ...; }
-  to { text-shadow: 0 0 20px ...; }
+  from { 
+    text-shadow: 0 0 5px rgba(0, 137, 123, 0.3); 
+  }
+  to { 
+    text-shadow: 
+      0 0 10px rgba(0, 137, 123, 0.5),
+      0 0 20px rgba(0, 137, 123, 0.3);
+  }
 }`}
             />
             
@@ -114,8 +140,14 @@ export function EfectosTextoModule() {
               title="4. Desplazamiento sutil"
               description="El texto se eleva ligeramente al hover"
               className="inline-block text-xl font-bold text-foreground transition-transform duration-200 hover:-translate-y-1"
+              htmlCode={`<!-- HTML -->
+<span class="text-lift">
+  Texto de ejemplo
+</span>`}
               cssCode={`.text-lift {
   display: inline-block;
+  font-size: 1.25rem;
+  font-weight: bold;
   transition: transform 0.2s ease;
 }
 
