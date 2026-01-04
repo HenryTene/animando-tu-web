@@ -82,9 +82,21 @@ export function AnimacionesModule() {
       : 'none',
   };
 
-  const generatedCSS = `${preset?.keyframes}
+  const generatedHTML = `<!-- HTML -->
+<div class="elemento">
+  DIV
+</div>`;
+
+  const generatedCSS = `/* CSS */
+${preset?.keyframes}
 
 .elemento {
+  width: 80px;
+  height: 80px;
+  background: #00897b;
+  border-radius: 12px;
+  
+  /* Propiedades de animación */
   animation-name: ${selectedPreset};
   animation-duration: ${duration}ms;
   animation-timing-function: ease-in-out;
@@ -113,8 +125,21 @@ export function AnimacionesModule() {
         <section>
           <h3 className="mb-4 text-lg font-semibold text-foreground">Estructura de @keyframes</h3>
           
-          <CodeBlock 
-            code={`/* Sintaxis con from/to (2 estados) */
+          <div className="grid gap-4 lg:grid-cols-2">
+            <CodeBlock 
+              code={`<!-- HTML -->
+<div class="fade-in-element">
+  Contenido que aparece
+</div>
+
+<div class="bounce-element">
+  Contenido que rebota
+</div>`}
+              language="html"
+              title="HTML"
+            />
+            <CodeBlock 
+              code={`/* Sintaxis con from/to (2 estados) */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -126,6 +151,10 @@ export function AnimacionesModule() {
   }
 }
 
+.fade-in-element {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
 /* Sintaxis con porcentajes (múltiples estados) */
 @keyframes bounce {
   0% { transform: translateY(0); }
@@ -133,10 +162,15 @@ export function AnimacionesModule() {
   50% { transform: translateY(0); }
   75% { transform: translateY(-5px); }
   100% { transform: translateY(0); }
+}
+
+.bounce-element {
+  animation: bounce 1s ease-in-out infinite;
 }`}
-            language="css"
-            title="Definir @keyframes"
-          />
+              language="css"
+              title="CSS"
+            />
+          </div>
         </section>
 
         <section>
@@ -162,6 +196,21 @@ export function AnimacionesModule() {
         </section>
 
         <DemoArea title="Demos de animaciones básicas">
+          <div className="mb-4">
+            <CodeBlock
+              code={`<!-- HTML -->
+<div class="spinner"></div>
+<div class="bounce-box"></div>
+<div class="pulse-box"></div>
+<div class="loader">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>`}
+              language="html"
+              title="HTML"
+            />
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-8">
             <div className="flex flex-col items-center gap-2">
               <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
@@ -193,6 +242,67 @@ export function AnimacionesModule() {
               </div>
               <span className="text-xs text-muted-foreground">Stagger Loader</span>
             </div>
+          </div>
+          <div className="mt-4">
+            <CodeBlock
+              code={`/* CSS */
+/* Spinner */
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #00897b;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Bounce */
+.bounce-box {
+  width: 48px;
+  height: 48px;
+  background: #26a69a;
+  border-radius: 8px;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Pulse */
+.pulse-box {
+  width: 48px;
+  height: 48px;
+  background: #4db6ac;
+  border-radius: 8px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Stagger Loader */
+.loader span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: #00897b;
+  border-radius: 50%;
+  animation: bounce 0.6s ease-in-out infinite;
+}
+
+.loader span:nth-child(2) { animation-delay: 0.1s; }
+.loader span:nth-child(3) { animation-delay: 0.2s; }`}
+              language="css"
+              title="CSS"
+            />
           </div>
         </DemoArea>
 
@@ -311,6 +421,12 @@ export function AnimacionesModule() {
                   DIV
                 </div>
               </div>
+              
+              <CodeBlock 
+                code={generatedHTML}
+                language="html"
+                title="HTML"
+              />
               
               <CodeBlock 
                 code={generatedCSS}
