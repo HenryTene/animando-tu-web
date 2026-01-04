@@ -5,6 +5,7 @@ import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
 const ANIMATION_PRESETS = [
@@ -72,7 +73,7 @@ export function AnimacionesModule() {
   const [direction, setDirection] = useState('normal');
   const [fillMode, setFillMode] = useState('none');
   const [isPlaying, setIsPlaying] = useState(true);
-  const [key, setKey] = useState(0); // For restarting animation
+  const [key, setKey] = useState(0);
 
   const preset = ANIMATION_PRESETS.find(p => p.value === selectedPreset);
   
@@ -82,19 +83,37 @@ export function AnimacionesModule() {
       : 'none',
   };
 
-  const generatedHTML = `<!-- HTML -->
-<div class="elemento">
-  DIV
-</div>`;
+  const generatedHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animación CSS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="elemento">
+    DIV
+  </div>
+</body>
+</html>`;
 
-  const generatedCSS = `/* CSS */
+  const generatedCSS = `/* styles.css */
+
+/* Definición de keyframes */
 ${preset?.keyframes}
 
+/* Aplicar animación al elemento */
 .elemento {
   width: 80px;
   height: 80px;
   background: #00897b;
   border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
   
   /* Propiedades de animación */
   animation-name: ${selectedPreset};
@@ -104,6 +123,9 @@ ${preset?.keyframes}
   animation-direction: ${direction};
   animation-fill-mode: ${fillMode};
   animation-play-state: ${isPlaying ? 'running' : 'paused'};
+  
+  /* O en shorthand: */
+  /* animation: ${selectedPreset} ${duration}ms ease-in-out ${iterations} ${direction} ${fillMode}; */
 }`;
 
   const handleRestart = () => {
@@ -112,7 +134,7 @@ ${preset?.keyframes}
   };
 
   return (
-    <ModuleCard moduleId="animaciones" title="5. Animaciones con @keyframes">
+    <ModuleCard moduleId="animaciones" title="6. Animaciones con @keyframes">
       <div className="space-y-6">
         <ConceptBox>
           <p>
@@ -125,21 +147,39 @@ ${preset?.keyframes}
         <section>
           <h3 className="mb-4 text-lg font-semibold text-foreground">Estructura de @keyframes</h3>
           
-          <div className="grid gap-4 lg:grid-cols-2">
-            <CodeBlock 
-              code={`<!-- HTML -->
-<div class="fade-in-element">
-  Contenido que aparece
-</div>
+          <Tabs defaultValue="html" className="rounded-lg border border-border overflow-hidden">
+            <TabsList className="w-full justify-start rounded-none border-b border-border bg-muted/30 p-0">
+              <TabsTrigger value="html" className="rounded-none data-[state=active]:bg-background">HTML</TabsTrigger>
+              <TabsTrigger value="css" className="rounded-none data-[state=active]:bg-background">CSS</TabsTrigger>
+            </TabsList>
+            <TabsContent value="html" className="p-0 mt-0">
+              <CodeBlock 
+                code={`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animaciones CSS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="fade-in-element">
+    Contenido que aparece
+  </div>
 
-<div class="bounce-element">
-  Contenido que rebota
-</div>`}
-              language="html"
-              title="HTML"
-            />
-            <CodeBlock 
-              code={`/* Sintaxis con from/to (2 estados) */
+  <div class="bounce-element">
+    Contenido que rebota
+  </div>
+</body>
+</html>`}
+                language="html"
+              />
+            </TabsContent>
+            <TabsContent value="css" className="p-0 mt-0">
+              <CodeBlock 
+                code={`/* styles.css */
+
+/* Sintaxis con from/to (2 estados) */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -167,10 +207,10 @@ ${preset?.keyframes}
 .bounce-element {
   animation: bounce 1s ease-in-out infinite;
 }`}
-              language="css"
-              title="CSS"
-            />
-          </div>
+                language="css"
+              />
+            </TabsContent>
+          </Tabs>
         </section>
 
         <section>
@@ -196,57 +236,86 @@ ${preset?.keyframes}
         </section>
 
         <DemoArea title="Demos de animaciones básicas">
-          <div className="mb-4">
-            <CodeBlock
-              code={`<!-- HTML -->
-<div class="spinner"></div>
-<div class="bounce-box"></div>
-<div class="pulse-box"></div>
-<div class="loader">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>`}
-              language="html"
-              title="HTML"
-            />
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            <div className="flex flex-col items-center gap-2">
+          <p className="mb-4 text-sm text-muted-foreground text-center">
+            Estas son algunas animaciones comunes que puedes usar en tus proyectos.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-8 mb-6">
+            <div className="flex flex-col items-center gap-3">
               <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-              <span className="text-xs text-muted-foreground">Spinner</span>
+              <span className="text-xs text-muted-foreground font-medium">Spinner</span>
             </div>
             
-            <div className="flex flex-col items-center gap-2">
-              <div className="h-12 w-12 animate-bounce-subtle rounded-lg bg-secondary" />
-              <span className="text-xs text-muted-foreground">Bounce</span>
+            <div className="flex flex-col items-center gap-3">
+              <div 
+                className="h-12 w-12 rounded-lg bg-secondary"
+                style={{ animation: 'demo-bounce 1s ease-in-out infinite' }}
+              />
+              <span className="text-xs text-muted-foreground font-medium">Bounce</span>
             </div>
             
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center gap-3">
               <div className="h-12 w-12 animate-pulse rounded-lg bg-accent" />
-              <span className="text-xs text-muted-foreground">Fade Pulse</span>
+              <span className="text-xs text-muted-foreground font-medium">Pulse</span>
             </div>
             
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center gap-3">
               <div className="flex gap-1">
                 {[0, 1, 2].map(i => (
                   <div 
                     key={i}
                     className="h-3 w-3 rounded-full bg-primary"
                     style={{
-                      animation: 'bounce 0.6s ease-in-out infinite',
+                      animation: 'demo-bounce 0.6s ease-in-out infinite',
                       animationDelay: `${i * 0.1}s`,
                     }}
                   />
                 ))}
               </div>
-              <span className="text-xs text-muted-foreground">Stagger Loader</span>
+              <span className="text-xs text-muted-foreground font-medium">Stagger Loader</span>
             </div>
           </div>
-          <div className="mt-4">
-            <CodeBlock
-              code={`/* CSS */
-/* Spinner */
+          
+          <Tabs defaultValue="html" className="rounded-lg border border-border overflow-hidden">
+            <TabsList className="w-full justify-start rounded-none border-b border-border bg-muted/30 p-0">
+              <TabsTrigger value="html" className="rounded-none data-[state=active]:bg-background">HTML</TabsTrigger>
+              <TabsTrigger value="css" className="rounded-none data-[state=active]:bg-background">CSS</TabsTrigger>
+            </TabsList>
+            <TabsContent value="html" className="p-0 mt-0">
+              <CodeBlock
+                code={`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loaders CSS</title>
+  <link rel="stylesheet" href="loaders.css">
+</head>
+<body>
+  <!-- Spinner -->
+  <div class="spinner"></div>
+  
+  <!-- Bounce box -->
+  <div class="bounce-box"></div>
+  
+  <!-- Pulse box -->
+  <div class="pulse-box"></div>
+  
+  <!-- Stagger loader -->
+  <div class="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</body>
+</html>`}
+                language="html"
+              />
+            </TabsContent>
+            <TabsContent value="css" className="p-0 mt-0">
+              <CodeBlock
+                code={`/* loaders.css */
+
+/* ========== SPINNER ========== */
 .spinner {
   width: 48px;
   height: 48px;
@@ -260,7 +329,7 @@ ${preset?.keyframes}
   to { transform: rotate(360deg); }
 }
 
-/* Bounce */
+/* ========== BOUNCE ========== */
 .bounce-box {
   width: 48px;
   height: 48px;
@@ -271,10 +340,10 @@ ${preset?.keyframes}
 
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-15px); }
 }
 
-/* Pulse */
+/* ========== PULSE ========== */
 .pulse-box {
   width: 48px;
   height: 48px;
@@ -284,11 +353,16 @@ ${preset?.keyframes}
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.95); }
 }
 
-/* Stagger Loader */
+/* ========== STAGGER LOADER ========== */
+.loader {
+  display: flex;
+  gap: 4px;
+}
+
 .loader span {
   display: inline-block;
   width: 12px;
@@ -300,17 +374,20 @@ ${preset?.keyframes}
 
 .loader span:nth-child(2) { animation-delay: 0.1s; }
 .loader span:nth-child(3) { animation-delay: 0.2s; }`}
-              language="css"
-              title="CSS"
-            />
-          </div>
+                language="css"
+              />
+            </TabsContent>
+          </Tabs>
         </DemoArea>
 
         <section className="playground">
           <h3 className="mb-4 text-lg font-semibold text-foreground">🎮 Playground: Animaciones</h3>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Experimenta con diferentes configuraciones y copia el código para usarlo en tu proyecto.
+          </p>
           
           <div className="grid gap-8 lg:grid-cols-2">
-            <div className="space-y-5">
+            <div className="space-y-5 rounded-lg border border-border bg-card p-5">
               <div className="space-y-3">
                 <Label className="text-sm font-medium">Preset de animación</Label>
                 <Select value={selectedPreset} onValueChange={setSelectedPreset}>
@@ -329,7 +406,7 @@ ${preset?.keyframes}
               
               <div className="space-y-3">
                 <Label className="text-sm font-medium">
-                  Duración: <span className="text-primary">{duration}ms</span>
+                  Duración: <span className="text-primary font-mono">{duration}ms</span>
                 </Label>
                 <Slider
                   value={[duration]}
@@ -389,7 +466,7 @@ ${preset?.keyframes}
                 </Select>
               </div>
               
-              <div className="flex gap-2">
+              <div className="flex gap-2 pt-2">
                 <Button
                   variant={isPlaying ? "outline" : "default"}
                   size="sm"
@@ -412,28 +489,28 @@ ${preset?.keyframes}
             </div>
             
             <div className="flex flex-col gap-4">
-              <div className="flex h-48 items-center justify-center rounded-lg border-2 border-dashed border-border bg-muted/20">
+              <div className="flex h-48 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gradient-to-br from-muted/50 to-muted/20">
                 <div 
                   key={key}
-                  className="flex h-20 w-20 items-center justify-center rounded-xl bg-primary font-bold text-primary-foreground"
+                  className="flex h-20 w-20 items-center justify-center rounded-xl bg-primary font-bold text-primary-foreground shadow-lg"
                   style={animationStyle}
                 >
                   DIV
                 </div>
               </div>
               
-              <CodeBlock 
-                code={generatedHTML}
-                language="html"
-                title="HTML"
-              />
-              
-              <CodeBlock 
-                code={generatedCSS}
-                language="css"
-                title="CSS Generado"
-                showLineNumbers
-              />
+              <Tabs defaultValue="html" className="rounded-lg border border-border overflow-hidden">
+                <TabsList className="w-full justify-start rounded-none border-b border-border bg-muted/30 p-0">
+                  <TabsTrigger value="html" className="rounded-none data-[state=active]:bg-background text-xs">HTML</TabsTrigger>
+                  <TabsTrigger value="css" className="rounded-none data-[state=active]:bg-background text-xs">CSS</TabsTrigger>
+                </TabsList>
+                <TabsContent value="html" className="p-0 mt-0">
+                  <CodeBlock code={generatedHTML} language="html" />
+                </TabsContent>
+                <TabsContent value="css" className="p-0 mt-0">
+                  <CodeBlock code={generatedCSS} language="css" />
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
           
@@ -446,6 +523,10 @@ ${preset?.keyframes}
             @keyframes bounce {
               0%, 100% { transform: translateY(0); }
               50% { transform: translateY(-20px); }
+            }
+            @keyframes demo-bounce {
+              0%, 100% { transform: translateY(0); }
+              50% { transform: translateY(-15px); }
             }
             @keyframes fadeIn {
               from { opacity: 0; transform: translateY(10px); }

@@ -5,6 +5,7 @@ import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const TIMING_FUNCTIONS = [
   { value: 'ease', label: 'ease (default)' },
@@ -25,35 +26,51 @@ export function TransicionesModule() {
     ? { transition: `all ${duration}ms ${timingFunction} ${delay}ms` }
     : {};
 
-  const generatedHTML = `<!-- HTML -->
-<div class="elemento">
-  Hover me
-</div>`;
+  const generatedHTML = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transiciones CSS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="elemento">
+    Hover me
+  </div>
+</body>
+</html>`;
 
-  const generatedCSS = `/* CSS */
+  const generatedCSS = `/* styles.css */
 .elemento {
   /* Estado inicial */
   width: 100px;
   height: 100px;
   background: #00897b;
   border-radius: 12px;
-  transform: scale(1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   /* Transición */
-  transition: transform ${duration}ms ${timingFunction} ${delay}ms,
-              background ${duration}ms ${timingFunction} ${delay}ms,
-              box-shadow ${duration}ms ${timingFunction} ${delay}ms;
+  transition: 
+    transform ${duration}ms ${timingFunction} ${delay}ms,
+    background ${duration}ms ${timingFunction} ${delay}ms,
+    box-shadow ${duration}ms ${timingFunction} ${delay}ms;
 }
 
 .elemento:hover {
   transform: scale(1.1) translateY(-4px);
   background: #26a69a;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }`;
 
   return (
-    <ModuleCard moduleId="transiciones" title="4. Transiciones (transition)">
+    <ModuleCard moduleId="transiciones" title="5. Transiciones (transition)">
       <div className="space-y-6">
         <ConceptBox>
           <p>
@@ -95,91 +112,167 @@ export function TransicionesModule() {
               </p>
             </div>
           </div>
-          
-          <div className="mt-4 grid gap-4 lg:grid-cols-2">
-            <CodeBlock 
-              code={`<!-- HTML -->
-<button class="btn-transition">
-  Hover me
-</button>`}
-              language="html"
-              title="HTML"
-            />
-            <CodeBlock 
-              code={`/* Forma larga */
-transition-property: transform, opacity;
-transition-duration: 300ms;
-transition-timing-function: ease-out;
-transition-delay: 0ms;
+        </section>
 
-/* Shorthand (recomendado) */
-transition: transform 300ms ease-out 0ms, 
-            opacity 300ms ease-out 0ms;`}
-              language="css"
-              title="CSS"
-            />
-          </div>
+        <section>
+          <h3 className="mb-4 text-lg font-semibold text-foreground">Ejemplo de sintaxis</h3>
+          <Tabs defaultValue="html" className="rounded-lg border border-border overflow-hidden">
+            <TabsList className="w-full justify-start rounded-none border-b border-border bg-muted/30 p-0">
+              <TabsTrigger value="html" className="rounded-none data-[state=active]:bg-background">HTML</TabsTrigger>
+              <TabsTrigger value="css" className="rounded-none data-[state=active]:bg-background">CSS</TabsTrigger>
+            </TabsList>
+            <TabsContent value="html" className="p-0 mt-0">
+              <CodeBlock 
+                code={`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Botón con Transición</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <button class="btn-transition">
+    Hover me
+  </button>
+</body>
+</html>`}
+                language="html"
+              />
+            </TabsContent>
+            <TabsContent value="css" className="p-0 mt-0">
+              <CodeBlock 
+                code={`/* styles.css */
+
+/* Forma larga (todas las propiedades separadas) */
+.btn-transition {
+  padding: 12px 24px;
+  background: #00897b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  
+  transition-property: transform, background, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: ease-out;
+  transition-delay: 0ms;
+}
+
+/* Forma corta / Shorthand (recomendado) */
+.btn-transition {
+  transition: transform 300ms ease-out,
+              background 300ms ease-out,
+              box-shadow 300ms ease-out;
+}
+
+.btn-transition:hover {
+  transform: translateY(-2px);
+  background: #26a69a;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}`}
+                language="css"
+              />
+            </TabsContent>
+          </Tabs>
         </section>
 
         <DemoArea title="Comparación: Sin vs Con transición">
-          <div className="mb-4">
-            <CodeBlock
-              code={`<!-- HTML para ambos ejemplos -->
-<div class="caja sin-transicion">Hover</div>
-<div class="caja con-transicion">Hover</div>`}
-              language="html"
-              title="HTML"
-            />
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-12">
+          <p className="mb-4 text-sm text-muted-foreground text-center">
+            Pasa el cursor sobre cada caja para ver la diferencia
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-12 mb-6">
             <div className="flex flex-col items-center gap-3">
               <div className="group flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-destructive/80 font-bold text-destructive-foreground hover:scale-110 hover:-translate-y-1 hover:bg-destructive hover:shadow-lg">
                 Hover
               </div>
-              <span className="text-xs text-muted-foreground">Sin transición</span>
+              <span className="text-xs text-muted-foreground font-medium">❌ Sin transición</span>
             </div>
             
             <div className="flex flex-col items-center gap-3">
               <div className="group flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-success/80 font-bold text-success-foreground transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:bg-success hover:shadow-lg">
                 Hover
               </div>
-              <span className="text-xs text-muted-foreground">Con transición (300ms)</span>
+              <span className="text-xs text-muted-foreground font-medium">✅ Con transición (300ms)</span>
             </div>
           </div>
-          <div className="mt-4">
-            <CodeBlock
-              code={`/* CSS */
+          
+          <Tabs defaultValue="html" className="rounded-lg border border-border overflow-hidden">
+            <TabsList className="w-full justify-start rounded-none border-b border-border bg-muted/30 p-0">
+              <TabsTrigger value="html" className="rounded-none data-[state=active]:bg-background">HTML</TabsTrigger>
+              <TabsTrigger value="css" className="rounded-none data-[state=active]:bg-background">CSS</TabsTrigger>
+            </TabsList>
+            <TabsContent value="html" className="p-0 mt-0">
+              <CodeBlock
+                code={`<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparación Transiciones</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="caja sin-transicion">Hover</div>
+    <div class="caja con-transicion">Hover</div>
+  </div>
+</body>
+</html>`}
+                language="html"
+              />
+            </TabsContent>
+            <TabsContent value="css" className="p-0 mt-0">
+              <CodeBlock
+                code={`/* styles.css */
+.container {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  padding: 40px;
+}
+
 .caja {
   width: 100px;
   height: 100px;
   border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
   cursor: pointer;
 }
 
 .sin-transicion {
   background: #ef4444;
+  /* Sin transition - cambio instantáneo */
 }
 
 .con-transicion {
   background: #22c55e;
+  /* Con transition - cambio suave */
   transition: all 300ms ease;
 }
 
 .caja:hover {
   transform: scale(1.1) translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }`}
-              language="css"
-              title="CSS"
-            />
-          </div>
+                language="css"
+              />
+            </TabsContent>
+          </Tabs>
         </DemoArea>
 
         <section className="playground">
           <h3 className="mb-4 text-lg font-semibold text-foreground">🎮 Playground: Transiciones</h3>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Experimenta con los controles y copia el código generado para usarlo en tu proyecto.
+          </p>
           
           <div className="grid gap-8 lg:grid-cols-2">
-            <div className="space-y-5">
+            <div className="space-y-5 rounded-lg border border-border bg-card p-5">
               <div className="flex items-center justify-between">
                 <Label htmlFor="with-transition" className="text-sm font-medium">
                   Transición activa
@@ -193,7 +286,7 @@ transition: transform 300ms ease-out 0ms,
               
               <div className="space-y-3">
                 <Label className="text-sm font-medium">
-                  Duración: <span className="text-primary">{duration}ms</span>
+                  Duración: <span className="text-primary font-mono">{duration}ms</span>
                 </Label>
                 <Slider
                   value={[duration]}
@@ -207,7 +300,7 @@ transition: transform 300ms ease-out 0ms,
               
               <div className="space-y-3">
                 <Label className="text-sm font-medium">
-                  Delay: <span className="text-primary">{delay}ms</span>
+                  Delay: <span className="text-primary font-mono">{delay}ms</span>
                 </Label>
                 <Slider
                   value={[delay]}
@@ -241,7 +334,7 @@ transition: transform 300ms ease-out 0ms,
             </div>
             
             <div className="flex flex-col gap-4">
-              <div className="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-border bg-muted/20">
+              <div className="flex h-48 items-center justify-center rounded-lg border-2 border-dashed border-border bg-gradient-to-br from-muted/50 to-muted/20">
                 <div 
                   className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl bg-primary font-bold text-primary-foreground shadow-md hover:scale-110 hover:-translate-y-1 hover:bg-primary-glow hover:shadow-xl"
                   style={transitionStyle}
@@ -250,30 +343,34 @@ transition: transform 300ms ease-out 0ms,
                 </div>
               </div>
               
-              <CodeBlock 
-                code={generatedHTML}
-                language="html"
-                title="HTML"
-              />
-              
-              <CodeBlock 
-                code={generatedCSS}
-                language="css"
-                title="CSS Generado"
-              />
+              <Tabs defaultValue="html" className="rounded-lg border border-border overflow-hidden">
+                <TabsList className="w-full justify-start rounded-none border-b border-border bg-muted/30 p-0">
+                  <TabsTrigger value="html" className="rounded-none data-[state=active]:bg-background text-xs">HTML</TabsTrigger>
+                  <TabsTrigger value="css" className="rounded-none data-[state=active]:bg-background text-xs">CSS</TabsTrigger>
+                </TabsList>
+                <TabsContent value="html" className="p-0 mt-0">
+                  <CodeBlock code={generatedHTML} language="html" />
+                </TabsContent>
+                <TabsContent value="css" className="p-0 mt-0">
+                  <CodeBlock code={generatedCSS} language="css" />
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
         </section>
 
         <section>
           <h3 className="mb-4 text-lg font-semibold text-foreground">Curvas de timing visualizadas</h3>
+          <p className="mb-4 text-sm text-muted-foreground">
+            Observa cómo cada función de timing afecta la velocidad del movimiento.
+          </p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {['linear', 'ease', 'ease-in', 'ease-out'].map(timing => (
               <div key={timing} className="rounded-lg border border-border bg-card p-4">
                 <p className="mb-3 text-center font-mono text-sm font-medium text-primary">{timing}</p>
-                <div className="flex h-20 items-end justify-center overflow-hidden rounded bg-muted">
+                <div className="relative h-20 overflow-hidden rounded bg-muted">
                   <div 
-                    className="h-4 w-4 rounded-full bg-primary"
+                    className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full bg-primary shadow-lg"
                     style={{
                       animation: `moveRight 2s ${timing} infinite alternate`,
                     }}
@@ -284,8 +381,8 @@ transition: transform 300ms ease-out 0ms,
           </div>
           <style>{`
             @keyframes moveRight {
-              from { transform: translateX(-40px); }
-              to { transform: translateX(40px); }
+              from { left: 8px; }
+              to { left: calc(100% - 24px); }
             }
           `}</style>
         </section>
