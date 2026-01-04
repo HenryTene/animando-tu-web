@@ -32,7 +32,8 @@ function TextDemo({ title, description, demoContent, htmlCode, cssCode }: TextDe
           variant={showCode ? "secondary" : "outline"}
           size="sm"
           onClick={handleToggle}
-          className="gap-2 shrink-0 text-xs"
+          className="gap-2 shrink-0 text-xs cursor-pointer"
+          type="button"
         >
           {showCode ? <Eye className="h-3.5 w-3.5" /> : <Code className="h-3.5 w-3.5" />}
           {showCode ? 'Ver demo' : 'Ver código'}
