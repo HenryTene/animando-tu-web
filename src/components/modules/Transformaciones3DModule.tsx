@@ -97,26 +97,34 @@ export function Transformaciones3DModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="card-flip">
-  <div class="card">Hola</div>
+<div class="contenedor-3d">
+  <div class="caja">rotateX</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.card-flip {
-  perspective: 1000px;
+.contenedor-3d {
+  perspective: 500px;
 }
 
-.card {
-  transform: rotateX(45deg);
-  /* Rota hacia atrás en el eje X */
+.caja {
+  width: 128px;
+  height: 96px;
+  background: linear-gradient(135deg, #3b82f6, #3b82f699);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
 }
 
-.card:hover {
+.caja:hover {
   transform: rotateX(180deg);
-  /* Voltea completamente */
 }`}
                   language="css"
                   title="CSS"
@@ -124,12 +132,14 @@ export function Transformaciones3DModule() {
               </div>
               
               {/* Demo visual */}
-              <div className="flex justify-center py-4" style={{ perspective: '500px' }}>
-                <div 
-                  className="flex h-24 w-32 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/60 font-bold text-primary-foreground shadow-lg transition-transform duration-500 hover:[transform:rotateX(180deg)]"
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  Hover me
+              <div className="flex flex-col items-center gap-2 py-4">
+                <p className="text-xs text-muted-foreground">Pasa el cursor sobre la caja</p>
+                <div style={{ perspective: '500px' }}>
+                  <div 
+                    className="flex h-24 w-32 cursor-pointer items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/60 font-bold text-primary-foreground shadow-lg transition-transform duration-500 [transform-style:preserve-3d] hover:[transform:rotateX(180deg)]"
+                  >
+                    rotateX
+                  </div>
                 </div>
               </div>
             </TabsContent>
@@ -141,35 +151,33 @@ export function Transformaciones3DModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="flip-container">
-  <div class="flipper">
-    <div class="front">Frente</div>
-    <div class="back">Atrás</div>
-  </div>
+<div class="contenedor-3d">
+  <div class="caja">rotateY</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.flip-container {
-  perspective: 1000px;
+.contenedor-3d {
+  perspective: 500px;
 }
 
-.flipper {
+.caja {
+  width: 128px;
+  height: 96px;
+  background: linear-gradient(135deg, #22c55e, #22c55e99);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.5s ease;
   transform-style: preserve-3d;
-  transition: transform 0.6s;
 }
 
-.flip-container:hover .flipper {
-  transform: rotateY(180deg);
-}
-
-.front, .back {
-  backface-visibility: hidden;
-}
-
-.back {
+.caja:hover {
   transform: rotateY(180deg);
 }`}
                   language="css"
@@ -178,12 +186,14 @@ export function Transformaciones3DModule() {
               </div>
               
               {/* Demo visual */}
-              <div className="flex justify-center py-4" style={{ perspective: '500px' }}>
-                <div 
-                  className="flex h-24 w-32 items-center justify-center rounded-lg bg-gradient-to-br from-success to-success/60 font-bold text-white shadow-lg transition-transform duration-500 hover:[transform:rotateY(180deg)]"
-                  style={{ transformStyle: 'preserve-3d' }}
-                >
-                  Hover me
+              <div className="flex flex-col items-center gap-2 py-4">
+                <p className="text-xs text-muted-foreground">Pasa el cursor sobre la caja</p>
+                <div style={{ perspective: '500px' }}>
+                  <div 
+                    className="flex h-24 w-32 cursor-pointer items-center justify-center rounded-lg bg-gradient-to-br from-success to-success/60 font-bold text-white shadow-lg transition-transform duration-500 [transform-style:preserve-3d] hover:[transform:rotateY(180deg)]"
+                  >
+                    rotateY
+                  </div>
                 </div>
               </div>
             </TabsContent>
@@ -195,25 +205,29 @@ export function Transformaciones3DModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="spinner">
-  <span>⚙️</span>
+<div class="contenedor-3d">
+  <div class="caja">rotateZ</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.spinner {
-  animation: spin 2s linear infinite;
+.caja {
+  width: 96px;
+  height: 96px;
+  background: linear-gradient(135deg, #f59e0b, #f59e0b99);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.5s ease;
 }
 
-@keyframes spin {
-  from {
-    transform: rotateZ(0deg);
-  }
-  to {
-    transform: rotateZ(360deg);
-  }
+.caja:hover {
+  transform: rotateZ(180deg);
 }`}
                   language="css"
                   title="CSS"
@@ -221,12 +235,12 @@ export function Transformaciones3DModule() {
               </div>
               
               {/* Demo visual */}
-              <div className="flex justify-center py-4">
+              <div className="flex flex-col items-center gap-2 py-4">
+                <p className="text-xs text-muted-foreground">Pasa el cursor sobre la caja</p>
                 <div 
-                  className="flex h-24 w-24 items-center justify-center rounded-lg bg-gradient-to-br from-warning to-warning/60 text-4xl shadow-lg"
-                  style={{ animation: 'spin 3s linear infinite' }}
+                  className="flex h-24 w-24 cursor-pointer items-center justify-center rounded-lg bg-gradient-to-br from-warning to-warning/60 font-bold text-white shadow-lg transition-transform duration-500 hover:[transform:rotateZ(180deg)]"
                 >
-                  ⚙️
+                  rotateZ
                 </div>
               </div>
             </TabsContent>
@@ -238,27 +252,33 @@ export function Transformaciones3DModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="scene">
-  <div class="card-3d">
-    Contenido
-  </div>
+<div class="contenedor-3d">
+  <div class="caja">translateZ</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.scene {
-  perspective: 600px;
+.contenedor-3d {
+  perspective: 500px;
 }
 
-.card-3d {
+.caja {
+  width: 128px;
+  height: 96px;
+  background: linear-gradient(135deg, #ef4444, #ef444499);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
   transition: transform 0.3s ease;
 }
 
-.card-3d:hover {
-  /* Acerca el elemento al usuario */
-  transform: translateZ(50px);
+.caja:hover {
+  transform: translateZ(60px);
 }`}
                   language="css"
                   title="CSS"
@@ -266,11 +286,14 @@ export function Transformaciones3DModule() {
               </div>
               
               {/* Demo visual */}
-              <div className="flex justify-center py-4" style={{ perspective: '500px' }}>
-                <div 
-                  className="flex h-24 w-32 items-center justify-center rounded-lg bg-gradient-to-br from-destructive to-destructive/60 font-bold text-white shadow-lg transition-transform duration-300 hover:[transform:translateZ(60px)]"
-                >
-                  Hover me
+              <div className="flex flex-col items-center gap-2 py-4">
+                <p className="text-xs text-muted-foreground">Pasa el cursor sobre la caja</p>
+                <div style={{ perspective: '500px' }}>
+                  <div 
+                    className="flex h-24 w-32 cursor-pointer items-center justify-center rounded-lg bg-gradient-to-br from-destructive to-destructive/60 font-bold text-white shadow-lg transition-transform duration-300 hover:[transform:translateZ(60px)]"
+                  >
+                    translateZ
+                  </div>
                 </div>
               </div>
             </TabsContent>
@@ -282,42 +305,49 @@ export function Transformaciones3DModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="scene">
-  <div class="cube-face">
-    Rotación 3D
-  </div>
+<div class="contenedor-3d">
+  <div class="caja">rotate3d</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.scene {
-  perspective: 800px;
+.contenedor-3d {
+  perspective: 500px;
 }
 
-.cube-face {
+.caja {
+  width: 128px;
+  height: 96px;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
   transition: transform 0.5s ease;
 }
 
-.cube-face:hover {
-  /* Rota en diagonal */
+.caja:hover {
+  /* Rota en diagonal (eje X=1, Y=1, Z=0) */
   transform: rotate3d(1, 1, 0, 45deg);
-}
-
-/* Equivalente a rotar 45° en un eje 
-   que va de esquina a esquina */`}
+}`}
                   language="css"
                   title="CSS"
                 />
               </div>
               
               {/* Demo visual */}
-              <div className="flex justify-center py-4" style={{ perspective: '500px' }}>
-                <div 
-                  className="flex h-24 w-32 items-center justify-center rounded-lg bg-gradient-to-br from-secondary to-primary font-bold text-white shadow-lg transition-transform duration-500 hover:[transform:rotate3d(1,1,0,45deg)]"
-                >
-                  Hover me
+              <div className="flex flex-col items-center gap-2 py-4">
+                <p className="text-xs text-muted-foreground">Pasa el cursor sobre la caja</p>
+                <div style={{ perspective: '500px' }}>
+                  <div 
+                    className="flex h-24 w-32 cursor-pointer items-center justify-center rounded-lg bg-gradient-to-br from-secondary to-primary font-bold text-white shadow-lg transition-transform duration-500 hover:[transform:rotate3d(1,1,0,45deg)]"
+                  >
+                    rotate3d
+                  </div>
                 </div>
               </div>
             </TabsContent>
