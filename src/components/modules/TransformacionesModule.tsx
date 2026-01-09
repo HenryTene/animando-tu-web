@@ -99,18 +99,23 @@ export function TransformacionesModule() {
   justify-content: center;
   font-size: 12px;
   font-weight: bold;
-  transform: translate(50px, 20px);
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.caja-movida:hover {
+  transform: translate(50px, 20px);
 }`}
                   language="css"
                   title="CSS"
                 />
               </div>
               {/* Demo visual */}
-              <div className="flex justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
-                <div className="relative h-16 w-16">
-                  <div className="h-16 w-16 rounded-lg border-2 border-dashed border-muted-foreground/30"></div>
-                  <div className="absolute left-0 top-0 flex h-16 w-16 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground transition-transform duration-300 hover:[transform:translate(50px,20px)] cursor-pointer">
+              <div className="flex justify-center rounded-lg border border-dashed border-border bg-muted/20 p-8">
+                <p className="text-xs text-muted-foreground mb-2 absolute top-2 left-2">Pasa el cursor sobre la caja</p>
+                <div className="relative h-24 w-40">
+                  <div className="absolute left-0 top-4 h-16 w-16 rounded-lg border-2 border-dashed border-muted-foreground/30"></div>
+                  <div className="absolute left-0 top-4 flex h-16 w-16 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground transition-transform duration-300 hover:[transform:translate(50px,20px)] cursor-pointer">
                     Hover
                   </div>
                 </div>
@@ -151,13 +156,15 @@ export function TransformacionesModule() {
   justify-content: center;
   font-size: 24px;
   font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.rotada-45 {
+.caja:nth-child(2):hover {
   transform: rotate(45deg);
 }
 
-.rotada-90 {
+.caja:nth-child(3):hover {
   transform: rotate(90deg);
 }`}
                   language="css"
@@ -166,13 +173,13 @@ export function TransformacionesModule() {
               </div>
               {/* Demo visual */}
               <div className="flex justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
-                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-2xl font-bold text-white">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-lg font-bold text-white">
                   0°
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-2xl font-bold text-white [transform:rotate(45deg)]">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-lg font-bold text-white cursor-pointer transition-transform duration-300 hover:[transform:rotate(45deg)]">
                   45°
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-2xl font-bold text-white [transform:rotate(90deg)]">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-lg font-bold text-white cursor-pointer transition-transform duration-300 hover:[transform:rotate(90deg)]">
                   90°
                 </div>
               </div>
@@ -212,13 +219,15 @@ export function TransformacionesModule() {
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.escala-05 {
+.caja:nth-child(1):hover {
   transform: scale(0.5);
 }
 
-.escala-15 {
+.caja:nth-child(3):hover {
   transform: scale(1.5);
 }`}
                   language="css"
@@ -227,13 +236,13 @@ export function TransformacionesModule() {
               </div>
               {/* Demo visual */}
               <div className="flex items-center justify-center gap-12 rounded-lg border border-dashed border-border bg-muted/20 p-12">
-                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white [transform:scale(0.5)]">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white cursor-pointer transition-transform duration-300 hover:[transform:scale(0.5)]">
                   0.5
                 </div>
                 <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white">
                   1.0
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white [transform:scale(1.5)]">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white cursor-pointer transition-transform duration-300 hover:[transform:scale(1.5)]">
                   1.5
                 </div>
               </div>
@@ -274,13 +283,15 @@ export function TransformacionesModule() {
   justify-content: center;
   font-size: 12px;
   font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
-.skew-x {
+.caja:nth-child(2):hover {
   transform: skewX(15deg);
 }
 
-.skew-xy {
+.caja:nth-child(3):hover {
   transform: skew(10deg, 5deg);
 }`}
                   language="css"
@@ -292,10 +303,10 @@ export function TransformacionesModule() {
                 <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white">
                   Normal
                 </div>
-                <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white [transform:skewX(15deg)]">
+                <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white cursor-pointer transition-transform duration-300 hover:[transform:skewX(15deg)]">
                   skewX
                 </div>
-                <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white [transform:skew(10deg,5deg)]">
+                <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white cursor-pointer transition-transform duration-300 hover:[transform:skew(10deg,5deg)]">
                   skew
                 </div>
               </div>
