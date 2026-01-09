@@ -63,33 +63,55 @@ export function TransformacionesModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="caja">
-  Elemento movido
+<div class="contenedor">
+  <div class="caja-original"></div>
+  <div class="caja-movida">50px, 20px</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.caja {
-  transform: translate(50px, 20px);
-  /* Mueve 50px derecha, 20px abajo */
+.contenedor {
+  position: relative;
+  width: 64px;
+  height: 64px;
 }
 
-/* Otras opciones */
-.solo-x { transform: translateX(50px); }
-.solo-y { transform: translateY(-20px); }
-.porcentaje { transform: translate(50%, 0); }`}
+.caja-original {
+  width: 64px;
+  height: 64px;
+  border: 2px dashed #888;
+  border-radius: 8px;
+}
+
+.caja-movida {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  transform: translate(50px, 20px);
+  cursor: pointer;
+}`}
                   language="css"
                   title="CSS"
                 />
               </div>
               {/* Demo visual */}
               <div className="flex justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
-                <div className="relative">
-                  <div className="h-16 w-16 rounded border-2 border-dashed border-muted-foreground/30"></div>
-                  <div className="absolute left-0 top-0 flex h-16 w-16 items-center justify-center rounded bg-primary text-xs font-bold text-primary-foreground transition-transform duration-300 hover:[transform:translate(20px,10px)] cursor-pointer">
-                    50px, 20px
+                <div className="relative h-16 w-16">
+                  <div className="h-16 w-16 rounded-lg border-2 border-dashed border-muted-foreground/30"></div>
+                  <div className="absolute left-0 top-0 flex h-16 w-16 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground transition-transform duration-300 hover:[transform:translate(50px,20px)] cursor-pointer">
+                    Hover
                   </div>
                 </div>
               </div>
@@ -102,34 +124,55 @@ export function TransformacionesModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="icono">
-  🔄
+<div class="cajas">
+  <div class="caja">0°</div>
+  <div class="caja rotada-45">45°</div>
+  <div class="caja rotada-90">90°</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.icono {
+.cajas {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.caja {
+  width: 64px;
+  height: 64px;
+  background: #22c55e;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.rotada-45 {
   transform: rotate(45deg);
 }
 
-/* Otras unidades */
-.vueltas { transform: rotate(0.5turn); }
-.radianes { transform: rotate(3.14rad); }`}
+.rotada-90 {
+  transform: rotate(90deg);
+}`}
                   language="css"
                   title="CSS"
                 />
               </div>
               {/* Demo visual */}
               <div className="flex justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-2xl font-bold text-white">
                   0°
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white transition-transform duration-300 hover:[transform:rotate(45deg)] cursor-pointer">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-2xl font-bold text-white [transform:rotate(45deg)]">
                   45°
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-success text-2xl font-bold text-white transition-transform duration-300 hover:[transform:rotate(90deg)] cursor-pointer">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-success text-2xl font-bold text-white [transform:rotate(90deg)]">
                   90°
                 </div>
               </div>
@@ -142,39 +185,55 @@ export function TransformacionesModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<button class="boton">
-  Hover me
-</button>`}
+<div class="cajas">
+  <div class="caja escala-05">0.5</div>
+  <div class="caja">1.0</div>
+  <div class="caja escala-15">1.5</div>
+</div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.boton {
-  transition: transform 0.2s;
+.cajas {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
 }
 
-.boton:hover {
-  transform: scale(1.1);
+.caja {
+  width: 64px;
+  height: 64px;
+  background: #f59e0b;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
-/* Otras opciones */
-.solo-ancho { transform: scaleX(2); }
-.solo-alto { transform: scaleY(0.5); }
-.separado { transform: scale(1.5, 0.8); }`}
+.escala-05 {
+  transform: scale(0.5);
+}
+
+.escala-15 {
+  transform: scale(1.5);
+}`}
                   language="css"
                   title="CSS"
                 />
               </div>
               {/* Demo visual */}
-              <div className="flex items-center justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
-                <div className="flex h-12 w-12 items-center justify-center rounded bg-warning text-xs font-bold text-white">
+              <div className="flex items-center justify-center gap-12 rounded-lg border border-dashed border-border bg-muted/20 p-12">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white [transform:scale(0.5)]">
                   0.5
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-warning text-sm font-bold text-white">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white">
                   1.0
                 </div>
-                <div className="flex h-16 w-16 items-center justify-center rounded bg-warning text-sm font-bold text-white transition-transform duration-300 hover:[transform:scale(1.5)] cursor-pointer">
+                <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-warning text-sm font-bold text-white [transform:scale(1.5)]">
                   1.5
                 </div>
               </div>
@@ -187,34 +246,56 @@ export function TransformacionesModule() {
               <div className="grid gap-4 lg:grid-cols-2">
                 <CodeBlock 
                   code={`<!-- HTML -->
-<div class="tarjeta">
-  Contenido inclinado
+<div class="cajas">
+  <div class="caja">Normal</div>
+  <div class="caja skew-x">skewX</div>
+  <div class="caja skew-xy">skew</div>
 </div>`}
                   language="html"
                   title="HTML"
                 />
                 <CodeBlock 
                   code={`/* CSS */
-.tarjeta {
-  transform: skew(10deg, 5deg);
+.cajas {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Otras opciones */
-.solo-x { transform: skewX(15deg); }
-.solo-y { transform: skewY(-10deg); }`}
+.caja {
+  width: 80px;
+  height: 64px;
+  background: #ef4444;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.skew-x {
+  transform: skewX(15deg);
+}
+
+.skew-xy {
+  transform: skew(10deg, 5deg);
+}`}
                   language="css"
                   title="CSS"
                 />
               </div>
               {/* Demo visual */}
               <div className="flex items-center justify-center gap-8 rounded-lg border border-dashed border-border bg-muted/20 p-8">
-                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white">
+                <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white">
                   Normal
                 </div>
-                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white transition-transform duration-300 hover:[transform:skewX(15deg)] cursor-pointer">
+                <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white [transform:skewX(15deg)]">
                   skewX
                 </div>
-                <div className="flex h-16 w-20 items-center justify-center rounded bg-destructive text-xs font-bold text-white transition-transform duration-300 hover:[transform:skew(10deg,5deg)] cursor-pointer">
+                <div className="flex h-16 w-20 items-center justify-center rounded-lg bg-destructive text-xs font-bold text-white [transform:skew(10deg,5deg)]">
                   skew
                 </div>
               </div>
